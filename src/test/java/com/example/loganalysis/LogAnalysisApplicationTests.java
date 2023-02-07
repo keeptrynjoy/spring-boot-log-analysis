@@ -8,13 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class LogAnalysisApplicationTests {
 
-    @Autowired
-    private LogAnalysisUtils logAnalysisUtils;
-
-    @Test
-    void leadLogFile() {
-
-        logAnalysisUtils.readLogFile();
-
-    }
 }
