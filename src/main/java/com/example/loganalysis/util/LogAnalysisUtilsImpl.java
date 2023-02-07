@@ -34,11 +34,12 @@ public class LogAnalysisUtilsImpl implements LogAnalysisUtils {
 
                 List<String> list = Arrays.asList(splitLogStr(line));
 
+                // 읽어온 로그 파일의 문자를 InputLog와 매핑해준다.
                 inputLogList.add(InputLog.builder()
                         .status(Integer.parseInt(list.get(0)))
                         .url(list.get(1))
                         .webBrowser(list.get(2))
-                        .invokeDateTime(strToDateTime(list.get(3)))
+                        .invokeDateTime(convertStrToDateTime(list.get(3)))
                         .build());
             }
 
@@ -69,11 +70,17 @@ public class LogAnalysisUtilsImpl implements LogAnalysisUtils {
 
     }
 
+    /*
+    *  로그 파일의 문자를 구분자를 기준으로 분할시키는 메서드
+    * */
     private String[] splitLogStr(String strLog){
         return strLog.replaceAll("\\[","").split("\\]");
     }
 
-    private LocalDateTime strToDateTime(String strDateTime){
+    /*
+    *  로그 파일의 문자열 날짜시간을 InputLog와 매핑시키기위한 변환 메서드
+    * */
+    private LocalDateTime convertStrToDateTime(String strDateTime){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
