@@ -10,5 +10,5 @@ public interface LogExtractMethod {
 
     public String topThreeServiceIdCountExtractor(List<InputLogDto> inputLogDtoList);
 
-    void usageRateByWebBrowser(List<InputLogDto> inputLogDtoList);
+    public String usageRateByWebBrowser(List<InputLogDto> inputLogDtoList);
 }
