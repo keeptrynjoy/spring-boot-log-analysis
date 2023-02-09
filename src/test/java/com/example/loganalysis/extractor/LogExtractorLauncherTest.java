@@ -39,4 +39,14 @@ class LogExtractorLauncherTest {
         logExtractMethod.topThreeServiceIdCountExtractor(inputLogDtoList);
 
     }
+
+    @Test
+    void usageRateByWebBrowserTest(){
+
+        //given
+        List<InputLogDto> inputLogDtoList = fileReaderMethod.readLogFile("src/main/resources/input.log");
+
+        //when
+        logExtractMethod.usageRateByWebBrowser(inputLogDtoList);
+    }
 }
