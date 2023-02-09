@@ -1,6 +1,7 @@
 package com.example.loganalysis.extractor;
 
 import com.example.loganalysis.dto.InputLogDto;
+import com.example.loganalysis.reader.FileReaderMethod;
 import com.example.loganalysis.reader.FileReaderMethodImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ class LogExtractorLauncherTest {
     private LogExtractMethod logExtractMethod;
 
     @Autowired
-    private FileReaderMethodImpl fileReaderMethod;
+    private FileReaderMethod fileReaderMethod;
 
     @Test
     void extractLogList() {

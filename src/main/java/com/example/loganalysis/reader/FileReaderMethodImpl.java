@@ -25,7 +25,7 @@ public class FileReaderMethodImpl implements FileReaderMethod{
 
             String line = "";
             while ((line = br.readLine()) != null) {
-                InputLogDto log = FileReaderMethodImpl.convertStrToDto(line);
+                InputLogDto log = convertStrToDto(line);
                 inputLogList.add(log);
             }
 
@@ -37,7 +37,7 @@ public class FileReaderMethodImpl implements FileReaderMethod{
         return inputLogList;
     }
 
-    private static InputLogDto convertStrToDto(String strLog) {
+    private InputLogDto convertStrToDto(String strLog) {
         List<String> list = Arrays.asList(strLog.replaceAll("\\[", "").split("\\]"));
 
         return InputLogDto.builder()
@@ -48,7 +48,7 @@ public class FileReaderMethodImpl implements FileReaderMethod{
                 .build();
     }
 
-    private static LocalDateTime convertStrToDateTime(String strDateTime) {
+    private LocalDateTime convertStrToDateTime(String strDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(strDateTime, formatter);
     }
