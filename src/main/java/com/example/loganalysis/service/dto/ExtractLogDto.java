@@ -1,4 +1,4 @@
-package com.example.loganalysis.dto;
+package com.example.loganalysis.service.dto;
 
 import lombok.Getter;
 

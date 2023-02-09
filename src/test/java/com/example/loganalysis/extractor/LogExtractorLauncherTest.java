@@ -1,8 +1,8 @@
 package com.example.loganalysis.extractor;
 
-import com.example.loganalysis.dto.InputLogDto;
-import com.example.loganalysis.reader.FileReaderMethod;
-import com.example.loganalysis.reader.FileReaderMethodImpl;
+import com.example.loganalysis.service.LogExtractMethod;
+import com.example.loganalysis.service.dto.InputLogDto;
+import com.example.loganalysis.service.LogFileReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,15 +16,13 @@ class LogExtractorLauncherTest {
     private LogExtractMethod logExtractMethod;
 
     @Autowired
-    private FileReaderMethod fileReaderMethod;
+    private LogFileReader logFileReader;
 
     @Test
     void extractLogList() {
 
         //given
-//        FileReaderLauncher fileReader = new FileReaderLauncher("src/main/resources/input.log");
-//        List<InputLogDto> inputLogDtoList = fileReader.readLogFile();
-        List<InputLogDto> inputLogDtoList = fileReaderMethod.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
 
         //when
         logExtractMethod.mostCalledApiKeyExtractor(inputLogDtoList);
@@ -34,7 +32,7 @@ class LogExtractorLauncherTest {
     void topThreeServiceIdCountExtractorTest(){
 
         //given
-        List<InputLogDto> inputLogDtoList = fileReaderMethod.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
 
         //when
         logExtractMethod.topThreeServiceIdCountExtractor(inputLogDtoList);
@@ -45,7 +43,7 @@ class LogExtractorLauncherTest {
     void usageRateByWebBrowserTest(){
 
         //given
-        List<InputLogDto> inputLogDtoList = fileReaderMethod.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
 
         //when
         logExtractMethod.usageRateByWebBrowser(inputLogDtoList);

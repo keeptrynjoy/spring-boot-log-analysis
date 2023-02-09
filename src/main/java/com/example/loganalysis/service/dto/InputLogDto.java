@@ -1,4 +1,4 @@
-package com.example.loganalysis.dto;
+package com.example.loganalysis.service.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-@ToString
 public class InputLogDto {
     private int status;
     private String url;
