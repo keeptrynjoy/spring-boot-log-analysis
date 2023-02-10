@@ -1,6 +1,8 @@
 package com.example.loganalysis.service;
 
 import com.example.loganalysis.service.dto.InputLogDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -14,28 +16,23 @@ import java.util.List;
 
 @Component
 public class LogFileReader{
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogFileReader.class);
 
     /* 로그 파일을 읽기 위한 메서드 */
     public static List<InputLogDto> readLogFile(String path) {
 
-        BufferedReader br = null;
         List<InputLogDto> inputLogList = new ArrayList<>();
 
-        try {
-            FileReader fr = new FileReader(path);
-            br = new BufferedReader(fr);
+        try(BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 // 로그 파일에서 읽어온 문자를 객체화히여 list에 담음
                 inputLogList.add(convertStrToDto(line));
             }
 
-            br.close();
-            fr.close();
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("로그 파일을 읽는 동안 문제가 발생되었습니다.", e);
         }
 
         return inputLogList;

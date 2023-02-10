@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.*;
 public class LogExtractMethod{
 
     /* 개행 문자(OS에 맞게 변환) */
-    private static final String NEW_LINE = System.getProperty("line.separator");
+    private static final String NEW_LINE = System.lineSeparator();
 
     /* 최다호출 API KEY 추출 메서드 */
     public static String mostCalledApiKeyExtractor(List<InputLogDto> inputLogDtoList) {
@@ -26,7 +26,7 @@ public class LogExtractMethod{
                 .map(ild -> new ExtractLogDto(ild.getUrl())) // 로그의 URL에서 API KEY 추출
                 .collect(groupingBy(ExtractLogDto::getApiKey, counting())) // API KEY 별 개수 추출
                 .entrySet().stream()// API KEY와 요청 수가 key,value 형태로된 Map을 반환
-                .max(comparingInt(api -> api.getValue().intValue())) // 최다 호출 API KEY의 요청 수를 찾기 위해 비교
+                .max(Map.Entry.comparingByValue()) // 최다 호출 API KEY의 요청 수를 찾기 위해 비교
                 .map(Map.Entry::getKey) // 찾아낸 최다 호출 API KEY의 이름만 반환
                 .orElseThrow(RuntimeException::new);
 
@@ -40,15 +40,15 @@ public class LogExtractMethod{
 
         StringBuilder sb = new StringBuilder("상위 3개의 API Service ID와 각각의 요청 수").append(NEW_LINE);
 
-        ArrayList<Map.Entry<String, Long>> topThreeServiceId = statusCodeFilter(inputLogDtoList) // 상태 200의 로그만 추출
+        List<Map.Entry<String, Long>> topThreeServiceIdCounts = statusCodeFilter(inputLogDtoList) // 상태 200의 로그만 추출
                         .map(ild -> new ExtractLogDto(ild.getUrl())) // 로그의 URL에서 Service ID 추출
-                        .collect(groupingBy(ExtractLogDto::getServiceId, counting())) // // Service ID 별 개수 추출
+                        .collect(groupingBy(ExtractLogDto::getServiceId, counting())) // Service ID 별 개수 추출
                         .entrySet().stream() // ServiceID와 요청 수가 key,value 형태로된 Map을 반환
                         .sorted(Map.Entry.comparingByValue(reverseOrder())) // ServiceID의 요청 수를 기준으로 역정렬
                         .limit(3) // 정렬된 사항에서 앞의 3개 Service ID만 추출
-                        .collect(toCollection(ArrayList::new));
+                        .collect(toList());
 
-        for (Map.Entry<String, Long> map : topThreeServiceId) {
+        for (Map.Entry<String, Long> map : topThreeServiceIdCounts) {
             sb.append(map.getKey())
                     .append(" : ")
                     .append(map.getValue())
@@ -62,7 +62,7 @@ public class LogExtractMethod{
 
         StringBuilder sb = new StringBuilder("웹브라우저별 사용 비율").append(NEW_LINE);
 
-        ArrayList<Map.Entry<String, Double>> collect = statusCodeFilter(inputLogDtoList) // 상태 200의 로그만 추출
+        List<Map.Entry<String, Double>> collect = statusCodeFilter(inputLogDtoList) // 상태 200의 로그만 추출
                 .collect(teeing( // 두 번의 계산 결과를 한번에 처리하기 위해 Java 12 Collectors.teeing()을 사용
                         counting(), // 로그 전체 개수 추출
                         groupingBy(InputLogDto::getWebBrowser, counting()), // Web Browser별 개수 추출
@@ -75,7 +75,7 @@ public class LogExtractMethod{
                         })
                 ).entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(reverseOrder())) // 요청 수가 높은 순으로 list에 담기 위해 역정렬
-                .collect(toCollection(ArrayList::new));
+                .collect(toList());
 
         for (Map.Entry<String, Double> map : collect) {
             sb.append(map.getKey())
