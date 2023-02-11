@@ -12,7 +12,7 @@ public class launcher {
     /* service 패키지에 작성된 모듈을 작동시키기 위한 main 메서드 */
     public static void main(String[] args) {
 
-        // 로그 파일을 읽어 객체화 후 List에 담음
+        // project 폴더의 'input.log' 파일을 읽어 객체화 후 List에 담음.
         List<InputLogDto> inputLogDtoList = LogFileReader.readLogFile("input.log");
 
         StringBuilder sb = new StringBuilder();
