@@ -58,6 +58,7 @@ public class LogExtractMethod{
         return  sb.toString();
     }
 
+    /* 웹브라우저별 사용 비율 추출 메서드 */
     public static String usageRateByWebBrowser(List<InputLogDto> inputLogDtoList) {
 
         StringBuilder sb = new StringBuilder("웹브라우저별 사용 비율").append(NEW_LINE);
