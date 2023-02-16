@@ -7,7 +7,7 @@ import com.example.loganalysis.service.LogFileWriter;
 
 import java.util.List;
 
-public class launcher {
+public class Launcher {
 
     /* service 패키지에 작성된 모듈을 작동시키기 위한 main 메서드 */
     public static void main(String[] args) {
