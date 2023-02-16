@@ -22,7 +22,7 @@ class LogExtractorLauncherTest {
     void extractLogList() {
 
         //given
-        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("input.log");
 
         //when
         logExtractMethod.mostCalledApiKeyExtractor(inputLogDtoList);
@@ -32,7 +32,7 @@ class LogExtractorLauncherTest {
     void topThreeServiceIdCountExtractorTest(){
 
         //given
-        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("input.log");
 
         //when
         logExtractMethod.topThreeServiceIdCountExtractor(inputLogDtoList);
@@ -43,7 +43,7 @@ class LogExtractorLauncherTest {
     void usageRateByWebBrowserTest(){
 
         //given
-        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("src/main/resources/input.log");
+        List<InputLogDto> inputLogDtoList = logFileReader.readLogFile("input.log");
 
         //when
         logExtractMethod.usageRateByWebBrowser(inputLogDtoList);
